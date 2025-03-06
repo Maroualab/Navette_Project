@@ -1,10 +1,8 @@
 <?php
 
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Auth\RegisterController;
+
 use App\Http\Controllers\authController;
-use App\Http\Controllers\ShuttleOfferController;
+use App\Http\Controllers\OffreController;
 use Illuminate\Support\Facades\Route;
 
 // Home page
@@ -37,10 +35,10 @@ Route::get('/offres/{id}', function ($id) {
 //     return view('offres.create');
 // });
 
-Route::prefix('transport-companies')->group(function () {
-    Route::get('/offers/create', [ShuttleOfferController::class, 'create'])->name('offers.create');
-    Route::post('/offers', [ShuttleOfferController::class, 'store'])->name('offers.store');
-});
+// Route::prefix('transport-companies')->group(function () {
+    Route::get('/offers/create', [OffreController::class, 'create'])->name('offers.create');
+    Route::post('/offers/create', [OffreController::class, 'store'])->name('offers.store');
+// });
 
 // Requests routes
 Route::get('/demandes/create', function () {

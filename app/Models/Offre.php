@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ShuttleOffer extends Model
+class Offre extends Model
 {
+    /** @use HasFactory<\Database\Factories\OffreFactory> */
+    use HasFactory;
+
     protected $fillable = [
-        'user_id',
-        'title',
         'depart',
         'arrivee',
         'heure_depart',
@@ -17,11 +19,5 @@ class ShuttleOffer extends Model
         'date_fin',
         'available_places',
         'description',
-        'equipements'
-    ];
-
-    // Cast JSON field to array
-    protected $casts = [
-        'equipements' => 'array'
     ];
 }

@@ -23,7 +23,6 @@ return new class extends Migration
             $table->date('date_fin');
             $table->integer('available_places');
             $table->text('description');
-            $table->json('equipements')->nullable(); // Stores checkboxes as JSON
             $table->boolean('is_open')->default(true);
             $table->timestamps();
         });
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('shuttle_offers');
+        //
     }
 };

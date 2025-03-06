@@ -106,7 +106,7 @@
         <div class="mb-8">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-wine">Offres actives</h2>
-                <a href="/offres/create" class="bg-wine text-white px-4 py-2 rounded-md hover:bg-wine/90 transition">Créer une offre</a>
+                <a href="/offers/create" class="bg-wine text-white px-4 py-2 rounded-md hover:bg-wine/90 transition">Créer une offre</a>
             </div>
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="overflow-x-auto">
