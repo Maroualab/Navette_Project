@@ -31,6 +31,11 @@
                     <a href="/register" class="border border-dutch-white px-4 py-2 rounded-md hover:bg-dutch-white/20 transition">Inscription</a>
                 @endguest
                 @auth
+                    @if(auth()->user()->role == 'transport-companies')
+                        <a href="/transport-companies/dashboard" class="hover:text-dutch-white transition">Dashboard</a>
+                    @else
+                        <a href="/dashboard" class="hover:text-dutch-white transition">Dashboard</a>
+                    @endif
                     <a href="/logout" class="bg-dutch-white text-wine px-4 py-2 rounded-md hover:bg-dutch-white/80 transition">Déconnexion</a>
                 @endauth
             </div>
@@ -82,41 +87,39 @@
         <div class="container mx-auto px-4">
             <h2 class="text-3xl font-bold text-center mb-12 text-wine">Offres populaires</h2>
             <div class="grid md:grid-cols-3 gap-6">
-                <!-- Offer Card 1 -->
+                @foreach($offres as $offre)
+                <!-- Offer Card -->
                 <div class="bg-white rounded-lg shadow-md overflow-hidden">
                     <div class="bg-wine text-white p-4">
                         <div class="flex justify-between items-center">
-                            <h3 class="text-xl font-semibold">Casablanca → Rabat</h3>
-                            <span class="bg-dutch-white text-wine px-2 py-1 rounded text-sm font-medium">Places disponibles</span>
+                            <h3 class="text-xl font-semibold">{{ $offre->depart }} → {{ $offre->arrivee }}</h3>
                         </div>
                     </div>
                     <div class="p-4">
                         <div class="flex justify-between mb-3">
                             <div>
                                 <p class="text-sm text-gray-600">Départ</p>
-                                <p class="font-semibold">07:30</p>
+                                <p class="font-semibold">{{ $offre->heure_depart }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600">Arrivée</p>
-                                <p class="font-semibold">08:45</p>
+                                <p class="font-semibold">{{ $offre->heure_arrivee }}</p>
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600">Places</p>
-                                <p class="font-semibold">12/20</p>
+                                <p class="font-semibold">{{ $offre->available_places }}</p>
                             </div>
                         </div>
-                        <div class="mb-3">
+                        <div class="mb-3"></div>
                             <p class="text-sm text-gray-600">Période</p>
-                            <p class="font-semibold">01/03/2025 - 30/06/2025</p>
+                            <p class="font-semibold">{{ $offre->date_debut}} - {{ $offre->date_fin }}</p>
                         </div>
-                        <div class="mb-4">
-                            <p class="text-sm text-gray-600">Équipements</p>
-                            <p>Climatisation, WiFi, 30 sièges</p>
-                        </div>
-                        <a href="/offres/1" class="block w-full bg-wine text-white text-center py-2 rounded-md hover:bg-wine/90 transition">Voir détails</a>
+                        <a href="/offres/{{ $offre->id }}" class="block w-full bg-wine text-white text-center py-2 rounded-md hover:bg-wine/90 transition">Voir détails</a>
                     </div>
                 </div>
-                   
+                @endforeach
+            </div>
+        </div>
     </section>
 
     <!-- CTA Section -->

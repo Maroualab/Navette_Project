@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Offre;
 use App\Http\Requests\StoreOffreRequest;
 use App\Http\Requests\UpdateOffreRequest;
+use App\Models\ShuttleOffer;
 use Illuminate\Validation\Rule;
 
 class OffreController extends Controller
@@ -14,9 +15,9 @@ class OffreController extends Controller
      */
     public function index()
     {
-        //
+        $offres = ShuttleOffer::all(); 
+        return view('home', compact('offres'));
     }
-
     /**
      * Show the form for creating a new resource.
      */

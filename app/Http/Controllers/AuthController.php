@@ -17,6 +17,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
+        
         $credentials = $request->validate([
             'email' => 'required|email',
             'password' => 'required',
@@ -24,18 +25,11 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            if ( Auth::user()->role == 'transport_company') {
-                return redirect('/dashboard/company');
-            }else if( Auth::user()->role == 'user'){
-                return redirect('/dashboard');
-            }else{
-                return redirect('/admin');
-            }
+            return redirect('/dashboard')->with('success', 'Logged in successfully!');
         }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        return back()->withErrors(['email' => 'Invalid credentials'])->onlyInput('email');
+    
 
 
     }
@@ -47,24 +41,22 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
+        $validated = $request->validate([
+            'role' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|min:8',
         ]);
-
-        if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput();
-        }
-
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
-
+            // dd($validated);
+        $user = new User();
+        $user->role = $validated['role'];
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->password = bcrypt($validated['password']);
+        $user->save();
+    
         Auth::login($user);
-
+    
         return redirect('/');
     }
 

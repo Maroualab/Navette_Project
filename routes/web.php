@@ -3,12 +3,11 @@
 
 use App\Http\Controllers\authController;
 use App\Http\Controllers\OffreController;
+use App\Http\Controllers\ShuttleOfferController;
 use Illuminate\Support\Facades\Route;
 
 // Home page
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/',[OffreController::class,'index'])->name('home');
 
 
 // Authentication routes
@@ -18,27 +17,50 @@ Route::post('/login', [authController::class,'login'])->name("login.store");
 Route::get('/register', function () {return view('auth.register');})->name("register");
 
 Route::post('/register',[authController::class,'register'])->name("register.create");
-Route::get('/logout',[authController::class,'logout']);
+
+Route::get('/logout',[authController::class,'logout'])->middleware('protected');;
 
 
 // Offers routes
-Route::get('/offres', function () {
-    return view('offres.index');
-});
+// Route::get('/offres', function () {
+//     return view('offres.index');
+// });
 
+// Route::get('/offers', [ShuttleOfferController::class, 'index'])->name('offers.index');
+//     Route::get('/offers/create', [ShuttleOfferController::class, 'create'])->name('offers.create');
+//     Route::post('/offers', [ShuttleOfferController::class, 'store'])->name('offers.store');
+    // Route::get('/offers/{offer}/edit', [ShuttleOfferController::class, 'edit'])->name('offers.edit');
+    // Route::put('/offers/{offer}', [ShuttleOfferController::class, 'update'])->name('offers.update');
+    // Route::delete('/offers/{offer}', [ShuttleOfferController::class, 'destroy'])->name('offers.destroy');
 
-Route::get('/offres/{id}', function ($id) {
-    return view('offres.show');
-})->where('id', '[0-9]+');
+// Route::get('/offres/{id}', function ($id) {
+//     return view('offres.show');
+// })->where('id', '[0-9]+');
 
 // Route::get('/offres/create', function () {
 //     return view('offres.create');
 // });
 
 // Route::prefix('transport-companies')->group(function () {
-    Route::get('/offers/create', [OffreController::class, 'create'])->name('offers.create');
-    Route::post('/offers/create', [OffreController::class, 'store'])->name('offers.store');
+    // Route::get('/offers/create', [OffreController::class, 'create'])->name('offers.create');
+    // Route::post('/offers/create', [OffreController::class, 'store'])->name('offers.store');
 // });
+
+
+Route::group(['middleware' => 'protected'], function () {
+    Route::prefix('transport-companies')->group(function () {
+        Route::get('/offres', [ShuttleOfferController::class, 'index'])->name('offers.index');
+        Route::get('/offers/create', [ShuttleOfferController::class, 'create'])->name('offers.create');
+        Route::post('/offers', [ShuttleOfferController::class, 'store'])->name('offers.store');
+        Route::get('/offers/{offer}/edit', [ShuttleOfferController::class, 'edit'])->name('offers.edit');
+        Route::put('/offers/{offer}', [ShuttleOfferController::class, 'update'])->name('offers.update');
+        Route::delete('/offers/{offer}', [ShuttleOfferController::class, 'destroy'])->name('offers.destroy');
+        Route::get('/dashboard', function () {return view('dashboard.company');});
+    });
+    
+    // Other protected routes
+   
+});
 
 // Requests routes
 Route::get('/demandes/create', function () {
@@ -58,9 +80,9 @@ Route::get('/dashboard', function () {
     return view('dashboard.user');
 });
 
-Route::get('/dashboard/company', function () {
-    return view('dashboard.company');
-});
+// Route::get('/dashboard/company', function () {
+//     return view('dashboard.company');
+// });
 
 // Subscriptions routes
 Route::get('/abonnements', function () {

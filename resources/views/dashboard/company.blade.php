@@ -106,7 +106,7 @@
         <div class="mb-8">
             <div class="flex justify-between items-center mb-4">
                 <h2 class="text-2xl font-bold text-wine">Offres actives</h2>
-                <a href="/offers/create" class="bg-wine text-white px-4 py-2 rounded-md hover:bg-wine/90 transition">Créer une offre</a>
+                <a href="/transport-companies/offers/create" class="bg-wine text-white px-4 py-2 rounded-md hover:bg-wine/90 transition">Créer une offre</a>
             </div>
             <div class="bg-white rounded-lg shadow-md overflow-hidden">
                 <div class="overflow-x-auto">
@@ -299,7 +299,7 @@
                     <ul class="space-y-2">
                         <li><a href="/societes/inscription" class="text-gray-300 hover:text-dutch-white transition">Devenir partenaire</a></li>
                         <li><a href="/societes/login" class="text-gray-300 hover:text-dutch-white transition">Espace société</a></li>
-                        <li><a href="/offres/create" class="text-gray-300 hover:text-dutch-white transition">Créer une offre</a></li>
+                        <li><a href="/transport-companies/offers/create" class="text-gray-300 hover:text-dutch-white transition">Créer une offre</a></li>
                     </ul>
                 </div>
                 <div>

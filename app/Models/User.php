@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'is_company',
+        'role',
     ];
 
     /**
@@ -44,9 +44,18 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function subscribedOffers()
-    {
-        return $this->belongsToMany(Offer::class, 'offer_user')
-                    ->withTimestamps();
-    }
+     // Relation avec les offres créées par la société de transport
+     public function shuttleOffers()
+     {
+         return $this->hasMany(ShuttleOffer::class);
+     }
+ 
+     // Relation avec les offres auxquelles l'utilisateur est abonné
+     public function subscribedOffers()
+     {
+         return $this->belongsToMany(ShuttleOffer::class, 'offer_user')
+             ->using(OfferUser::class)
+             ->withTimestamps();
+     }
+   
 }

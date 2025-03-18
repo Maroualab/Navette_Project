@@ -40,7 +40,15 @@
     <form action="{{ route("register.create") }}" method="POST">
         @csrf
 
-      
+        @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
         <!-- Register Form -->
         <div class="flex-grow flex items-center justify-center py-12 px-4">
             <div class="max-w-md w-full bg-white rounded-lg shadow-lg overflow-hidden">
@@ -55,19 +63,19 @@
                     <div class="mb-6">
                         <div class="flex justify-center space-x-4 mb-6">
                             <label class="w-full">
-                                <input type="radio" name="user_type" value="user" class="hidden peer"{{ old('user_type')=='user'?'checked':'' }}  >
+                                <input type="radio" name="role" value="user" class="hidden peer"{{ old('role')=='user'?'checked':'' }}  >
                                 <div
                                     class="bg-wine text-white px-4 py-2 rounded-md font-medium w-full text-center peer-checked:bg-dutch-white peer-checked:text-wine cursor-pointer">
                                     Utilisateur</div>
                             </label>
                             <label class="w-full">
-                                <input type="radio" name="user_type" value="transport_company" class="hidden peer" {{ old('user_type')=='company'?'checked':'' }} >
+                                <input type="radio" name="role" value="transport_company" class="hidden peer" {{ old('role')=='transport_company'?'checked':'' }} >
                                 <div
                                     class="bg-wine text-white px-4 py-2 rounded-md font-medium w-full text-center peer-checked:bg-dutch-white peer-checked:text-wine cursor-pointer">
                                     Société</div>
                             </label>
                         </div>
-                        @error('user_type')
+                        @error('role')
                             <div class="text-red-500 text-sm mt-2">{{ $message }}</div>
                         @enderror
 

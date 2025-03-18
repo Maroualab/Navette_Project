@@ -51,7 +51,7 @@
     </div>
 
     <!-- Create Offer Form -->
-    @if ($errors->any())
+    <!-- @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -59,7 +59,7 @@
                 @endforeach
             </ul>
         </div>
-    @endif
+    @endif -->
     <div class="flex-grow container mx-auto px-4 py-8">
         <div class="bg-white rounded-lg shadow-lg overflow-hidden">
             <div class="p-6">
